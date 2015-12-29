@@ -14,6 +14,7 @@
 		A19270B21C32F22600F1E474 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A19270B11C32F22600F1E474 /* Images.xcassets */; };
 		A19270B51C32F22600F1E474 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A19270B31C32F22600F1E474 /* LaunchScreen.xib */; };
 		A19270C11C32F22600F1E474 /* HomepwnerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A19270C01C32F22600F1E474 /* HomepwnerTests.m */; };
+		A19270CC1C32F27D00F1E474 /* BNRItemsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A19270CB1C32F27D00F1E474 /* BNRItemsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,8 @@
 		A19270BA1C32F22600F1E474 /* HomepwnerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HomepwnerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A19270BF1C32F22600F1E474 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A19270C01C32F22600F1E474 /* HomepwnerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomepwnerTests.m; sourceTree = "<group>"; };
+		A19270CA1C32F27D00F1E474 /* BNRItemsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNRItemsViewController.h; sourceTree = "<group>"; };
+		A19270CB1C32F27D00F1E474 /* BNRItemsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNRItemsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +66,8 @@
 		A19270981C32F22500F1E474 = {
 			isa = PBXGroup;
 			children = (
+				A19270CA1C32F27D00F1E474 /* BNRItemsViewController.h */,
+				A19270CB1C32F27D00F1E474 /* BNRItemsViewController.m */,
 				A19270A31C32F22500F1E474 /* Homepwner */,
 				A19270BD1C32F22600F1E474 /* HomepwnerTests */,
 				A19270A21C32F22500F1E474 /* Products */,
@@ -221,6 +226,7 @@
 			files = (
 				A19270AD1C32F22600F1E474 /* ViewController.m in Sources */,
 				A19270AA1C32F22600F1E474 /* AppDelegate.m in Sources */,
+				A19270CC1C32F27D00F1E474 /* BNRItemsViewController.m in Sources */,
 				A19270A71C32F22600F1E474 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
