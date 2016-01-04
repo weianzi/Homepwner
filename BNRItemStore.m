@@ -10,10 +10,13 @@
 #import "BNRItem.h"
 
 @interface BNRItemStore ()
+
 @property (nonatomic) NSMutableArray *privateItems;
+
 @end
 
 @implementation BNRItemStore
+
 
 + (instancetype)sharedStore
 {
@@ -24,27 +27,31 @@
     return sharedStore;
 }
 
+
 - (instancetype)init
 {
-    @throw [NSException exceptionWithName:@"singleton" reason:@"Use +[BNRItemStore sharedStore]" userInfo:nil];
+    @throw [NSException exceptionWithName:@"singleton"
+                                   reason:@"Use +[BNRItemStore sharedStore]"
+                                 userInfo:nil];
     return nil;
 }
+
 
 - (instancetype)initPrivate
 {
     self = [super init];
-    
     if (self) {
         _privateItems = [[NSMutableArray alloc] init];
     }
-    
     return self;
 }
+
 
 - (NSArray *)allItems
 {
     return self.privateItems;
 }
+
 
 - (BNRItem *)createItem
 {
@@ -52,5 +59,6 @@
     [self.privateItems addObject:item];
     return item;
 }
+
 
 @end
