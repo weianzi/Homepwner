@@ -18,6 +18,25 @@
 
 @implementation BNRItemsViewController
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.tableView  reloadData];
+}
+
+-(void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    BNRDetailViewController *detailViewController = [[BNRDetailViewController alloc] init];
+    NSArray *items = [[BNRItemStore sharedStore] allItems];
+    BNRItem *selectedItem = items[indexPath.row];
+    
+    detailViewController.item = selectedItem;
+    
+    [self.navigationController pushViewController:detailViewController
+                                         animated:YES];
+}
+
 -(instancetype)init
 {
     self = [super initWithStyle:UITableViewStylePlain];
@@ -25,6 +44,17 @@
 //        for (int i = 0; i < 5; i++) {
 //            [[BNRItemStore sharedStore] createItem];
 //        }
+        UINavigationItem *navItem = self.navigationItem;
+        navItem.title = @"Homepwner";
+        
+        UIBarButtonItem *bbi = [[UIBarButtonItem alloc]
+    initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                         target:self
+                         action:@selector(addNewItem:)];
+        
+        navItem.rightBarButtonItem = bbi;
+        navItem.leftBarButtonItem = self.editButtonItem;
+        
     }
     return self;
 }
@@ -73,19 +103,19 @@ forRowAtIndexPath:(nonnull NSIndexPath *)indexPath
     [self.tableView registerClass:[UITableViewCell class]
            forCellReuseIdentifier:@"UITableViewCell"];
     
-    UIView *header = self.headerView;
-    [self.tableView setTableHeaderView:header];
+    //UIView *header = self.headerView;
+    //[self.tableView setTableHeaderView:header];
 }
 
--(UIView *)headerView
-{
-    if (!_headerView) {
-        [[NSBundle mainBundle] loadNibNamed:@"HeaderView"
-                                     owner:self
-                                   options:nil];
-    }
-    return _headerView;
-}
+//-(UIView *)headerView
+//{
+//    if (!_headerView) {
+//        [[NSBundle mainBundle] loadNibNamed:@"HeaderView"
+//                                     owner:self
+//                                   options:nil];
+//    }
+//    return _headerView;
+//}
 
 -(IBAction)addNewItem:(id)sender
 {
@@ -99,20 +129,20 @@ forRowAtIndexPath:(nonnull NSIndexPath *)indexPath
                           withRowAnimation:UITableViewRowAnimationTop];
 }
 
--(IBAction)toggleEditingMode:(id)sender
-{
-    if (self.isEditing) {
-        [sender setTitle:@"Edit"
-                forState:UIControlStateNormal];
-        [self setEditing:NO
-                animated:YES];
-    } else {
-        [sender setTitle:@"Done"
-                forState:UIControlStateNormal];
-        [self setEditing:YES
-                animated:YES];
-    }
-}
+//-(IBAction)toggleEditingMode:(id)sender
+//{
+//    if (self.isEditing) {
+//        [sender setTitle:@"Edit"
+//                forState:UIControlStateNormal];
+//        [self setEditing:NO
+//                animated:YES];
+//    } else {
+//        [sender setTitle:@"Done"
+//                forState:UIControlStateNormal];
+//        [self setEditing:YES
+//                animated:YES];
+//    }
+//}
 
 - (void)tableView:(UITableView *)tableView
 moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
