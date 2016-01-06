@@ -49,7 +49,7 @@
 - (instancetype)initWithItemName:(NSString *)name
 {
     return [self initWithItemName:name
-            valueInDollars:0
+                   valueInDollars:0
                      serialNumber:@""];
 }
 

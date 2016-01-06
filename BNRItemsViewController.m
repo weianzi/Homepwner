@@ -22,9 +22,9 @@
 {
     self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
-        for (int i = 0; i < 5; i++) {
-            [[BNRItemStore sharedStore] createItem];
-        }
+//        for (int i = 0; i < 5; i++) {
+//            [[BNRItemStore sharedStore] createItem];
+//        }
     }
     return self;
 }
@@ -54,6 +54,19 @@ cellForRowAtIndexPath:(NSIndexPath *)indexPath
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView
+commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+forRowAtIndexPath:(nonnull NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSArray *items = [[BNRItemStore sharedStore] allItems];
+        BNRItem *item = items[indexPath.row];
+        [[BNRItemStore sharedStore] removeItem:item];
+        
+        [tableView deleteRowsAtIndexPaths:@[indexPath]
+                         withRowAnimation:UITableViewRowAnimationFade];
+    }
+}
 -(void)viewDidLoad
 {
     [super viewDidLoad];
@@ -76,23 +89,37 @@ cellForRowAtIndexPath:(NSIndexPath *)indexPath
 
 -(IBAction)addNewItem:(id)sender
 {
+    //NSInteger lastRow = [self.tableView numberOfRowsInSection:0];
     BNRItem *newItem = [[BNRItemStore sharedStore] createItem];
     NSInteger lastRow = [[[BNRItemStore sharedStore] allItems] indexOfObject:newItem];
     
-    //NSInteger lastRow = [self.tableView numberOfRowsInSection:0];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:lastRow inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:lastRow
+                                                inSection:0];
+    [self.tableView insertRowsAtIndexPaths:@[indexPath]
+                          withRowAnimation:UITableViewRowAnimationTop];
 }
 
 -(IBAction)toggleEditingMode:(id)sender
 {
     if (self.isEditing) {
-        [sender setTitle:@"Edit" forState:UIControlStateNormal];
-        [self setEditing:NO animated:YES];
+        [sender setTitle:@"Edit"
+                forState:UIControlStateNormal];
+        [self setEditing:NO
+                animated:YES];
     } else {
-        [sender setTitle:@"Done" forState:UIControlStateNormal];
-        [self setEditing:YES animated:YES];
+        [sender setTitle:@"Done"
+                forState:UIControlStateNormal];
+        [self setEditing:YES
+                animated:YES];
     }
+}
+
+- (void)tableView:(UITableView *)tableView
+moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
+      toIndexPath:(NSIndexPath *)destinationIndexPath
+{
+    [[BNRItemStore sharedStore] moveItemAtIndex:sourceIndexPath.row
+                                        toIndex:destinationIndexPath.row];    
 }
 
 @end
