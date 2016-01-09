@@ -73,6 +73,10 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     }
     
     self.dateLabel.text = [dateFormatter stringFromDate:item.dateCreated];
+    
+    NSString *itemKey = self.item.itemKey;
+    UIImage *imageToDisplay = [[BNRImageStore sharedStore] imageForKey:itemKey];
+    self.imageView.image = imageToDisplay;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
