@@ -31,7 +31,12 @@
 {
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        
+        NSArray *availableTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
+        imagePicker.mediaTypes = availableTypes;
         imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        imagePicker.delegate = self;
+        
     } else{
         imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     }
@@ -52,6 +57,14 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     
     self.imageView.image = image;
     [self dismissViewControllerAnimated:YES completion:nil];
+    
+    NSURL *mediaURL = info[UIImagePickerControllerMediaURL];
+    if (mediaURL) {
+        if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum([mediaURL path])) {
+            UISaveVideoAtPathToSavedPhotosAlbum([mediaURL path], nil, nil, nil);
+            [[NSFileManager defaultManager] removeItemAtPath:[mediaURL path] error:nil];
+        }
+    }
 }
 
 - (void)setItem:(BNRItem *)item
