@@ -27,7 +27,10 @@
 -(void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    BNRDetailViewController *detailViewController = [[BNRDetailViewController alloc] init];
+    //BNRDetailViewController *detailViewController = [[BNRDetailViewController alloc] init];
+  
+    BNRDetailViewController *detailViewController = [[BNRDetailViewController alloc] initForNewItem:NO];
+    
     NSArray *items = [[BNRItemStore sharedStore] allItems];
     BNRItem *selectedItem = items[indexPath.row];
     
@@ -121,12 +124,23 @@ forRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
     //NSInteger lastRow = [self.tableView numberOfRowsInSection:0];
     BNRItem *newItem = [[BNRItemStore sharedStore] createItem];
-    NSInteger lastRow = [[[BNRItemStore sharedStore] allItems] indexOfObject:newItem];
+    //NSInteger lastRow = [[[BNRItemStore sharedStore] allItems] indexOfObject:newItem];
     
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:lastRow
-                                                inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath]
-                          withRowAnimation:UITableViewRowAnimationTop];
+    //NSIndexPath *indexPath = [NSIndexPath indexPathForRow:lastRow
+    //                                            inSection:0];
+    //[self.tableView insertRowsAtIndexPaths:@[indexPath]
+    //                      withRowAnimation:UITableViewRowAnimationTop];
+    
+    BNRDetailViewController *detailViewController = [[BNRDetailViewController alloc] initForNewItem:YES];
+    detailViewController.item = newItem;
+    UINavigationController *navController = [[UINavigationController alloc]
+                                             initWithRootViewController:detailViewController];
+    navController.modalPresentationStyle = UIModalPresentationFormSheet;
+    
+    [self presentViewController:navController
+                       animated:YES
+                     completion:nil];
+    
 }
 
 //-(IBAction)toggleEditingMode:(id)sender
