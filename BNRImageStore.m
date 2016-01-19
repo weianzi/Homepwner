@@ -3,7 +3,7 @@
 //  Homepwner
 //
 //  Created by an on 16/1/9.
-//  Copyright © 2016年 ancool. All rights reserved.
+//  Copyright © 2016 ancool. All rights reserved.
 //
 
 #import "BNRImageStore.h"

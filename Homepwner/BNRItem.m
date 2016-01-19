@@ -3,14 +3,14 @@
 //  RandomItems
 //
 //  Created by ancool on 15/11/18.
-//  Copyright © 2015年 ancool. All rights reserved.
+//  Copyright © 2016 ancool. All rights reserved.
 //
 
 #import "BNRItem.h"
 
 @implementation BNRItem
 
-+(instancetype)randomItem
++ (instancetype)randomItem
 {
     NSArray *randomAdjectiveList = @[@"aaa", @"bbb", @"ccc", @"ddd"];
     NSArray *randomNounList = @[@"eee", @"fff", @"ggg"];

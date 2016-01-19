@@ -3,7 +3,7 @@
 //  Homepwner
 //
 //  Created by an on 15/12/30.
-//  Copyright (c) 2015年 ancool. All rights reserved.
+//  Copyright (c) 2016 ancool. All rights reserved.
 //
 
 #import "BNRItemsViewController.h"
@@ -21,10 +21,10 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.tableView  reloadData];
+    [self.tableView reloadData];
 }
 
--(void)tableView:(UITableView *)tableView
+- (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //BNRDetailViewController *detailViewController = [[BNRDetailViewController alloc] init];
@@ -40,7 +40,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
                                          animated:YES];
 }
 
--(instancetype)init
+- (instancetype)init
 {
     self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
@@ -62,21 +62,21 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     return self;
 }
 
--(instancetype)initWithStyle:(UITableViewStyle)style
+- (instancetype)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     return self;
     //return [self init];
 }
 
--(NSInteger)tableView:(UITableView *)tableView
-numberOfRowsInSection:(NSInteger)section
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section
 {
     return [[[BNRItemStore sharedStore] allItems] count];
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView
-cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"
@@ -87,7 +87,7 @@ cellForRowAtIndexPath:(NSIndexPath *)indexPath
     return cell;
 }
 
--(void)tableView:(UITableView *)tableView
+- (void)tableView:(UITableView *)tableView
 commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
 forRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
@@ -100,7 +100,7 @@ forRowAtIndexPath:(nonnull NSIndexPath *)indexPath
                          withRowAnimation:UITableViewRowAnimationFade];
     }
 }
--(void)viewDidLoad
+- (void)viewDidLoad
 {
     [super viewDidLoad];
     [self.tableView registerClass:[UITableViewCell class]
@@ -120,7 +120,7 @@ forRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 //    return _headerView;
 //}
 
--(IBAction)addNewItem:(id)sender
+- (IBAction)addNewItem:(id)sender
 {
     //NSInteger lastRow = [self.tableView numberOfRowsInSection:0];
     BNRItem *newItem = [[BNRItemStore sharedStore] createItem];
@@ -158,9 +158,9 @@ forRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 //    }
 //}
 
-- (void)tableView:(UITableView *)tableView
+ - (void)tableView:(UITableView *)tableView
 moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
-      toIndexPath:(NSIndexPath *)destinationIndexPath
+       toIndexPath:(NSIndexPath *)destinationIndexPath
 {
     [[BNRItemStore sharedStore] moveItemAtIndex:sourceIndexPath.row
                                         toIndex:destinationIndexPath.row];    
