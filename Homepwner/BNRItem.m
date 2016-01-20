@@ -63,7 +63,7 @@
     return [self initWithItemName:@"item"];
 }
 
--(NSString *)description
+- (NSString *)description
 {
     NSString *descriptionString = [[NSString alloc]
                              initWithFormat:@"%@ (%@):worth $%d, recorded on %@",
