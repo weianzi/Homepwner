@@ -11,6 +11,7 @@
 @interface BNRImageStore ()
 
 @property (nonatomic, strong) NSMutableDictionary *dictionary;
+- (NSString *)imagePathForKey:(NSString *)key;
 
 @end
 
@@ -50,6 +51,9 @@
     //[self.dictionary setObject:image forKey:key];
     
     self.dictionary[key] = image;
+    NSString *imagePath = [self imagePathForKey:key];
+    NSData *data = UIImageJPEGRepresentation(image, 0.5);
+    
 }
 
 - (id)imageForKey:(NSString *)key
@@ -64,6 +68,15 @@
         return;
     }
     [self.dictionary removeObjectForKey:key];
+}
+
+- (NSString *)imagePathForKey:(NSString *)key
+{
+    NSArray *documentDirecties = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory,
+                                                                     NSUserDomainMask,
+                                                                     YES);
+    NSString *documentDirectory = [documentDirecties firstObject];
+    return [documentDirectory stringByAppendingPathComponent:key];
 }
 
 @end
