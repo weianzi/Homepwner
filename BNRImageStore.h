@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface BNRImageStore : NSObject
 
 + (instancetype)sharedStore;
 
-- (void)setImage:(id)image forKey:(NSString *)key;
+- (void)setImage:(UIImage *)image forKey:(NSString *)key;
 - (id)imageForKey:(NSString *)key;
 - (void)deleteImageForKey:(NSString *)key;
 
