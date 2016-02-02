@@ -13,6 +13,7 @@
 @interface BNRItemStore ()
 
 @property (nonatomic) NSMutableArray *privateItems;
+- (NSString *)imagePathForKey: (NSString *)key;
 
 @end
 
@@ -41,10 +42,13 @@
 - (instancetype)initPrivate
 {
     self = [super init];
+    //NSLog(@"%@", self);
     if (self) {
         //_privateItems = [[NSMutableArray alloc] init];
         NSString *path = [self itemArchivePath];
+        //NSLog(@"%@", path);
         _privateItems = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+         //NSLog(@"%@", _privateItems);
         if (!_privateItems) {
             _privateItems = [[NSMutableArray alloc] init];
         }
@@ -90,18 +94,26 @@
 - (NSString *)itemArchivePath
 {
     NSArray *documentDirectiries = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-
     NSString *documentDirectiry = [documentDirectiries firstObject];
-    
+    //返回文件名为items.archive文件
     return [documentDirectiry stringByAppendingPathComponent:@"items.archive"];
 }
 
 - (BOOL)saveChanges
 {
     NSString *path = [self itemArchivePath];
+    //如果固化成功就返回YES
     return [NSKeyedArchiver archiveRootObject:self.privateItems toFile:path];
 }
 
+- (NSString *)imagePathForKey:(NSString *)key
+{
+    //NSSearchPathForDirectoriesInDomains得到沙盒中目录全路径
+    //NSDocumentDirectory得到Document目录路径
+    NSArray *documentDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentDirectory = [documentDirectories firstObject];    
+    return [documentDirectory stringByAppendingPathComponent:key];
+}
 
 
 @end
