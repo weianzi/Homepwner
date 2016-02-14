@@ -91,6 +91,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     //cell.textLabel.text = [item description];
     //根据BNRItem对象设置BNRItemCell对象
     cell.nameLabel.text = item.itemName;
+    //NSLog(@"%@", item.itemName);
     cell.serialNumberLabel.text = item.serialNumber;
     cell.valueLabel.text = [NSString stringWithFormat:@"$%d", item.valueInDollars];
     
