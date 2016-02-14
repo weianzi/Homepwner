@@ -101,6 +101,36 @@
     return self;
 }
 
+- (void)setThumbnailFromImage:(UIImage *)image
+{
+    CGSize origImageSize = image.size;
+    //缩略图大小
+    CGRect newRect = CGRectMake(0, 0, 40, 40);
+    //确定缩放倍数并保持宽高经不变
+    float ratio = MAX(newRect.size.width / origImageSize.width, newRect.size.height / origImageSize.height);
+    //根据当前设备的屏幕scaling factor创建位图上下文
+    UIGraphicsBeginImageContextWithOptions(newRect.size, NO, 0.0);
+    
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:newRect cornerRadius:5.0];
+    [path addClip];
+    
+    //居中
+    CGRect projectRect;
+    projectRect.size.width = ratio * origImageSize.width;
+    projectRect.size.height = ratio * origImageSize.height;
+    projectRect.origin.x = (newRect.size.width - projectRect.size.width) / 2.0;
+    projectRect.origin.y = (newRect.size.height - projectRect.size.height) / 2.0;
+    
+    //在上下文中绘制图片
+    [image drawInRect:projectRect];
+    //通过上下文得到UIImage对象，并将其赋给thumbnail属性
+    UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
+    self.thumbnail = smallImage;
+    
+    //清理上下文
+    UIGraphicsEndImageContext();
+
+}
 
 //- (void)setContainedItem:(BNRItem *)containedItem
 //{
