@@ -79,11 +79,21 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"
-                                                            forIndexPath:indexPath];
+    //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell" forIndexPath:indexPath];
+
+    //获取BNRItemCell对象，返回可能是现有的对象，也可能是新创建的对象
+    BNRItemCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BNRItemCell"
+                                                        forIndexPath:indexPath];
+    
+    
     NSArray *items = [[BNRItemStore sharedStore] allItems];
     BNRItem *item = items[indexPath.row];
-    cell.textLabel.text = [item description];
+    //cell.textLabel.text = [item description];
+    //根据BNRItem对象设置BNRItemCell对象
+    cell.nameLabel.text = item.itemName;
+    cell.serialNumberLabel.text = item.serialNumber;
+    cell.valueLabel.text = [NSString stringWithFormat:@"$%d", item.valueInDollars];
+    
     return cell;
 }
 
@@ -103,8 +113,14 @@ forRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.tableView registerClass:[UITableViewCell class]
-           forCellReuseIdentifier:@"UITableViewCell"];
+//    [self.tableView registerClass:[UITableViewCell class]
+//           forCellReuseIdentifier:@"UITableViewCell"];
+    
+    //创建UINib对象，该对象代表包含了BNRItemCell的NIB文件
+    UINib *nib = [UINib nibWithNibName:@"BNRItemCell" bundle:nil];
+    //通过UINib对象注册相应的NIB对象
+    [self.tableView registerNib:nib
+         forCellReuseIdentifier:@"BNRItemCell"];
     
     //UIView *header = self.headerView;
     //[self.tableView setTableHeaderView:header];
